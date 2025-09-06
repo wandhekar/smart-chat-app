@@ -16,14 +16,21 @@ spec:
     spec:
       containers:
       - name: backend
-        image: your-registry/smart-chat-backend:latest
+        image: ghcr.io/wandhekar/smart-chat-app/backend:latest
         ports:
         - containerPort: 8000
         env:
         - name: OLLAMA_URL
           value: "http://ollama-service:11434"
         - name: DEFAULT_MODEL
-          value: "llama2"
+          value: "llama3.2:1b"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
         livenessProbe:
           httpGet:
             path: /health

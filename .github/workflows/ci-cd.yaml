@@ -90,6 +90,8 @@ jobs:
         tags: ${{ steps.meta-backend.outputs.tags }}
         labels: ${{ steps.meta-backend.outputs.labels }}
 
+
+
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
@@ -102,8 +104,8 @@ jobs:
     - name: Update Kubernetes manifests
       run: |
         # Update image tags in Kubernetes manifests
-        sed -i "s|your-registry/smart-chat-frontend:latest|${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:main-${{ github.sha }}|g" k8s/frontend-deployment.yaml
-        sed -i "s|your-registry/smart-chat-backend:latest|${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:main-${{ github.sha }}|g" k8s/backend-deployment.yaml
+        sed -i "s|ghcr.io/wandhekar/smart-chat-app/frontend:latest|${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:main-${{ github.sha }}|g" k8s/frontend-deployment.yaml
+        sed -i "s|ghcr.io/wandhekar/smart-chat-app/backend:latest|${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:main-${{ github.sha }}|g" k8s/backend-deployment.yaml
     
     - name: Deploy to Kubernetes (if you have a cluster set up)
       run: |

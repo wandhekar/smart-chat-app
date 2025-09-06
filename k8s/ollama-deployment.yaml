@@ -31,15 +31,16 @@ spec:
             memory: "4Gi"
             cpu: "2"
         # Add init command to pull model
-        lifecycle:
-          postStart:
-            exec:
-              command:
-              - /bin/sh
-              - -c
-              - |
-                sleep 10
-                ollama pull llama3.2:1b || true
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                - /bin/sh
+                - -c
+                - |
+                  sleep 10
+                  ollama pull llama3.2:1b || true
+        # volumes should not be nested under containers; move to spec level
       volumes:
       - name: ollama-data
         persistentVolumeClaim:

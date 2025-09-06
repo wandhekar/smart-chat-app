@@ -7,7 +7,7 @@ services:
       - OLLAMA_HOST=0.0.0.0
     volumes:
       - ollama_data:/root/.ollama
-    entrypoint: [ "sh", "-c", "ollama serve & sleep 10 && ollama pull llama3.2:1b && wait" ]
+
 
 
   backend:
@@ -16,7 +16,7 @@ services:
       - "8000:8000"
     environment:
       - OLLAMA_URL=http://ollama:11434
-      - DEFAULT_MODEL=llama2
+      - DEFAULT_MODEL=llama3.2:1b
     depends_on:
       - ollama
 
